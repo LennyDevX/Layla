@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faRobot, faPaintBrush, faLightbulb, faGem, faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faPaintBrush, faLightbulb, faGem } from '@fortawesome/free-solid-svg-icons';
 
 const SidebarItem = ({ children, onClick, Icon }) => (
     <li className="p-1 rounded-lg flex items-center justify-between">
@@ -35,7 +35,7 @@ const Sidebar = () => {
                         <SidebarItem Icon={faGithub} onClick={() => handleClick('Github')}>Github</SidebarItem>
                         <SidebarItem Icon={faDiscord} onClick={() => handleClick('Discord')}>Discord</SidebarItem>
                         <SidebarItem Icon={faGem} onClick={() => handleClick('Gemini Pro')}>Gemini Pro</SidebarItem>
-                        <SidebarItem Icon={faCoffee} onClick={() => handleClick('Gemini Free')}>Gemini Free</SidebarItem>
+                        <SidebarItem Icon={faRobot} onClick={() => handleClick('CHATBOT BETA 1')}>CHATBOT </SidebarItem>
                     </>
                 ) : (
                     <>
@@ -88,9 +88,11 @@ const Sidebar = () => {
                                 </a>
                             </>
                         )}
-                        {selectedItem === 'Gemini Free' && (
+                        {selectedItem === 'CHATBOT BETA 1' && (
                             <>
-                                <p className="mt-4">Gemini Free is our free version that allows you to experiment with Google Gemini AI. Although it doesn't have all the features of Gemini Pro, it's a great way to start exploring what you can do with artificial intelligence. Try Gemini Free today!</p>
+                                <p className="mt-4">
+                                    Layla AI is our free version that allows you to experiment with the best Google LLM. Although it doesn't have all the features of Gemini Pro, it's a great way to start exploring what you can do with artificial intelligence. Please note that this chatbot is in beta phase, so any errors you may encounter are part of the development process. We ask that you use the bot with caution. We are open to collaboration! If you are a developer and have ideas to improve the chatbot, we would love to hear your suggestions. Try Gemini Free today!
+                                </p>                                
                                 <a href="https://www.gemini.com/free" target="_blank" rel="noopener noreferrer">
                                     <button className="mt-4 mb-2 p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">Learn More</button>
                                 </a>
