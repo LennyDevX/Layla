@@ -22,7 +22,7 @@ export const useChatLogic = () => {
         setIsLoading(true);
 
         // Añade la entrada del usuario al historial de chat
-        setChatHistory(prevChatHistory => [...prevChatHistory, { text: userInput, sender: 'You' }]);
+        setChatHistory(prevChatHistory => [...prevChatHistory, { text: userInput, sender: 'You'}]);
 
         // Usa el modelo para generar una respuesta basada en la entrada del usuario
         const result = await model.generateContentStream([userInput]);
