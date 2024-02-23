@@ -7,9 +7,9 @@ const HeroSection = () => {
     const { userInput, chatHistory, isLoading, handleInputChange, handleSubmit } = useChatLogic();
 
     return (
-        <div className="hero-section">
+        <div className="hero-section w-full">
             <div 
-                className="chat-history  p-4 rounded-lg bg-black max-w-100 overflow-auto" 
+                className="chat-history  p-4 rounded-lg bg-black w-full overflow-auto" 
             >
                 {chatHistory.map((message, index) => (
                     <p key={index} className={`${message.sender === 'User' ? 'text-right' : 'text-left'} mb-2`}>

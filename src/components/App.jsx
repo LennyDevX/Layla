@@ -7,9 +7,10 @@ function App() {
   return (
     <>
     <Navbar />
-    <div className="flex h-screen p-6 ">
-        <Sidebar />
+    <div className="flex h-screen p-3 ">
         <Chatbot />
+        <Sidebar />
+
     </div>
     </>
 );

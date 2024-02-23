@@ -22,25 +22,23 @@ const Sidebar = () => {
 
     const handleLoginSubmit = (event) => {
         event.preventDefault();
-        // Aquí puedes llamar a tu API para iniciar sesión
     };
-
+    
     const handleRegisterSubmit = (event) => {
         event.preventDefault();
-        // Aquí puedes llamar a tu API para registrar un nuevo usuario
     };
-
+     
     const handleClick = (item) => {
         setSelectedItem(item); 
     };
-
+    
     const handleBack = () => {
         setSelectedItem(null);
     };
-
+    
     return (
         <div className="sidebar w-full md:w-1/2 h-full text-white rounded-lg p-2 ">
-            <ul className="space-y-3 text-lg">
+            <ul className="space-y-2 w-5/6 text-lg ">
                 {selectedItem === null ? (
                     <>
                         <SidebarItem Icon={faRobot} onClick={() => handleClick('What is Layla AI?')}>What is Layla AI?</SidebarItem>
@@ -51,11 +49,10 @@ const Sidebar = () => {
                         <SidebarItem Icon={faGem} onClick={() => handleClick('Gemini Pro')}>Gemini Pro</SidebarItem>
                         <SidebarItem Icon={faRobot} onClick={() => handleClick('CHATBOT BETA 1')}>CHATBOT </SidebarItem>
                         <SidebarItem Icon={faSignInAlt} onClick={() => handleClick('Account')}>Login </SidebarItem>
-
                     </>
                 ) : (
                     <>
-                        <li className="rounded-lg   text-blue-400 text-3xl">{selectedItem}</li>
+                        <li className="rounded-lg text-blue-400 text-3xl">{selectedItem}</li>
                         {selectedItem === 'Use Case' && (
                             <>
                                 <p className="">Google Gemini AI can be leveraged for a multitude of use cases. From text generation and sentiment analysis to natural language processing and image generation. It can be utilized for language translation, product description generation, social media content creation, and much more. The possibilities are endless!</p>
@@ -67,7 +64,7 @@ const Sidebar = () => {
                         {selectedItem === 'What is Layla AI?' && (
                             <>
                                 <p className="mt-4">Layla AI is an intelligent chatbot that utilizes Google Gemini AI to interact with users. It can answer questions, provide recommendations, and perform tasks. Engage with Layla AI and discover how it can simplify your life!</p>
-                                <a href="https://www.layla.ai" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.layla.ai" target="_blank" rel="noopener noreferrer clas">
                                     <button className="mt-4 mb-2 p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">Learn More</button>
                                 </a>
                             </>
@@ -114,36 +111,40 @@ const Sidebar = () => {
                                 </a>
                             </>
                         )}
-                           {selectedItem === 'Account' && !isRegistering && (
-                <>
-                    <form onSubmit={handleLoginSubmit} className="mt-4">
-                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Nombre de usuario" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
-                        <button type="submit" className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">
-                            <FontAwesomeIcon icon={faSignInAlt} /> Iniciar sesión
-                        </button>
-                    </form>
-                    <button onClick={() => setIsRegistering(true)} className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">
-                        Registrarse
-                    </button>
-                </>
-            )}
-            {selectedItem === 'Account' && isRegistering && (
-                <form onSubmit={handleRegisterSubmit} className="mt-4">
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Nombre de usuario" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
-                    <button type="submit" className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">
-                        <FontAwesomeIcon icon={faSignInAlt} /> Registrarse
-                    </button>
-                    <button onClick={() => setIsRegistering(false)} className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">
-                        Iniciar sesión
-                    </button>
-                </form>
-            )}
-                        <button className="m-2 p-3 rounded-lg bg-red-800 text-white hover:bg-red-600" onClick={handleBack}>Go Back</button>
-                    </>
-                )}
+                        {selectedItem === 'Account' && !isRegistering && (
+                            <div className="mt-4 space-y-5">
+                                <form onSubmit={handleLoginSubmit}>
+                                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Nombre de usuario" className="p-2 rounded-lg border-blue-800 border-2 my-1 w-full" />
+                                    {usernameError && <p className="text-red-500">{usernameError}</p>}
+                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" className="p-2 rounded-lg border-blue-800 border-2 w-full my-1 " />
+                                    {passwordError && <p className="text-red-500">{passwordError}</p>}
+                                    <button type="submit" className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200 w-full text-center my-1">
+                                        <FontAwesomeIcon icon={faSignInAlt} /> Iniciar sesión
+                                    </button>
+                                </form>
+                                {loginError && <p className="text-red-500">{loginError}</p>}
+                                <button onClick={() => setIsRegistering(true)} className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200 w-full text-center">
+                                    Registrarse
+                                </button>
+                            </div>
+                        )}
+                        {selectedItem === 'Account' && isRegistering && (
+                            <div className="mt-4 space-y-4">
+                                <form onSubmit={handleRegisterSubmit}>
+                                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Nombre de usuario" className="p-2 rounded-lg border-blue-800 border-2 w-full my-1" />
+                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" className="p-2 rounded-lg border-blue-800 border-2 w-full my-1" />
+                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="p-2 rounded-lg border-blue-800 border-2 w-full my-1" />
+                                    <button type="submit" className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200 w-full text-center my-1">
+                                        <FontAwesomeIcon icon={faSignInAlt} /> Registrarse
+                                    </button>
+                                </form>
+                                <button onClick={() => setIsRegistering(false)} className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200 w-full text-center">
+                                    Iniciar sesión
+                                </button>
+                            </div>
+                        )}
+                        <button className="m-2 p-3 rounded-lg bg-red-800 text-white hover:bg-red-600 w-full text-center" onClick={handleBack}>Go Back</button></>
+                )}  
             </ul>
         </div>
     );
