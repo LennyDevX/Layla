@@ -9,8 +9,7 @@ const HeroSection = () => {
     return (
         <div className="hero-section">
             <div 
-                className="chat-history  p-5 rounded-lg overflow-auto" 
-                style={{ height: '89%', marginBottom: '7px' }}
+                className="chat-history  p-4 rounded-lg bg-black max-w-100 overflow-auto" 
             >
                 {chatHistory.map((message, index) => (
                     <p key={index} className={`${message.sender === 'User' ? 'text-right' : 'text-left'} mb-2`}>
@@ -25,12 +24,11 @@ const HeroSection = () => {
                     color='black'
                     onChange={handleInputChange} 
                     placeholder="Escribe algo..."
-                    style={{ width: '80%', marginRight: '10px' }}
+                    style={{ width: '100%', marginRight: '10px' }}
                 />
                 <button 
                     type="submit" 
                     disabled={isLoading} 
-                    className="p-2 bg-blue-500 text-white rounded-full shadow opacity-75"
                 >
                     {isLoading ? <FontAwesomeIcon icon={faSpinner} spin /> : 'Enviar'}
                 </button>

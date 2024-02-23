@@ -19,27 +19,34 @@ export const useChatLogic = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        setIsLoading(true);
-
-        // Añade la entrada del usuario al historial de chat
-        setChatHistory(prevChatHistory => [...prevChatHistory, { text: userInput, sender: 'You'}]);
-
-        // Usa el modelo para generar una respuesta basada en la entrada del usuario
-        const result = await model.generateContentStream([userInput]);
-
-        let text = '';
-        for await (const chunk of result.stream) {
-            const chunkText = chunk.text();
-            text += chunkText;
+        if (userInput.trim() === '') {
+            return;
         }
 
-        // Añade la respuesta del bot al historial de chat
-        setChatHistory(prevChatHistory => [...prevChatHistory, { text, sender: 'Layla AI' }]);
+        setIsLoading(true);
 
-        // Limpia la entrada del usuario
-        setUserInput('');
+        setChatHistory(prevChatHistory => [...prevChatHistory, { text: userInput, sender: 'You'}]);
 
-        setIsLoading(false);
+        try {
+            const result = await model.generateContentStream([userInput]);
+
+            let text = '';
+            for await (const chunk of result.stream) {
+                const chunkText = chunk.text();
+                text += chunkText;
+            }
+
+            text = text.length > 600 ? text.substring(0, 600) + '...' : text;
+
+            setTimeout(() => {
+                setChatHistory(prevChatHistory => [...prevChatHistory, { text, sender: 'Layla AI' }]);
+                setUserInput('');
+                setIsLoading(false);
+            }, 1000);
+        } catch (error) {
+            console.error('Error generating response:', error);
+            setIsLoading(false);
+        }
     };
 
     return { userInput, chatHistory, isLoading, handleInputChange, handleSubmit };

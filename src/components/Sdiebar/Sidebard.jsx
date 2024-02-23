@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import './Styles.css';
+import '../Chatbot/Styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faRobot, faPaintBrush, faLightbulb, faGem } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faPaintBrush, faLightbulb, faGem, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 const SidebarItem = ({ children, onClick, Icon }) => (
     <li className="p-1 rounded-lg flex items-center justify-between">
-        <button className="w-full text-left hover:scale-110 transform transition-transform duration-200" onClick={onClick}>
+        <button className="w-full text-left hover:scale-105 transform transition-transform duration-200" onClick={onClick}>
             {children}
             <FontAwesomeIcon icon={Icon} className="mx-2 " /> {/* Mueve el icono aquí */}
         </button>
@@ -15,6 +15,20 @@ const SidebarItem = ({ children, onClick, Icon }) => (
 
 const Sidebar = () => {
     const [selectedItem, setSelectedItem] = useState(null);
+    const [isRegistering, setIsRegistering] = useState(false);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+
+    const handleLoginSubmit = (event) => {
+        event.preventDefault();
+        // Aquí puedes llamar a tu API para iniciar sesión
+    };
+
+    const handleRegisterSubmit = (event) => {
+        event.preventDefault();
+        // Aquí puedes llamar a tu API para registrar un nuevo usuario
+    };
 
     const handleClick = (item) => {
         setSelectedItem(item); 
@@ -25,8 +39,8 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="sidebar w-full md:w-1/2 h-full text-white rounded-lg p-3 ">
-            <ul className="space-y-4 text-lg">
+        <div className="sidebar w-full md:w-1/2 h-full text-white rounded-lg p-2 ">
+            <ul className="space-y-3 text-lg">
                 {selectedItem === null ? (
                     <>
                         <SidebarItem Icon={faRobot} onClick={() => handleClick('What is Layla AI?')}>What is Layla AI?</SidebarItem>
@@ -36,6 +50,8 @@ const Sidebar = () => {
                         <SidebarItem Icon={faDiscord} onClick={() => handleClick('Discord')}>Discord</SidebarItem>
                         <SidebarItem Icon={faGem} onClick={() => handleClick('Gemini Pro')}>Gemini Pro</SidebarItem>
                         <SidebarItem Icon={faRobot} onClick={() => handleClick('CHATBOT BETA 1')}>CHATBOT </SidebarItem>
+                        <SidebarItem Icon={faSignInAlt} onClick={() => handleClick('Account')}>Login </SidebarItem>
+
                     </>
                 ) : (
                     <>
@@ -98,6 +114,33 @@ const Sidebar = () => {
                                 </a>
                             </>
                         )}
+                           {selectedItem === 'Account' && !isRegistering && (
+                <>
+                    <form onSubmit={handleLoginSubmit} className="mt-4">
+                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Nombre de usuario" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
+                        <button type="submit" className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">
+                            <FontAwesomeIcon icon={faSignInAlt} /> Iniciar sesión
+                        </button>
+                    </form>
+                    <button onClick={() => setIsRegistering(true)} className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">
+                        Registrarse
+                    </button>
+                </>
+            )}
+            {selectedItem === 'Account' && isRegistering && (
+                <form onSubmit={handleRegisterSubmit} className="mt-4">
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Nombre de usuario" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="p-2 rounded-lg border-blue-800 border-2 mb-2" />
+                    <button type="submit" className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">
+                        <FontAwesomeIcon icon={faSignInAlt} /> Registrarse
+                    </button>
+                    <button onClick={() => setIsRegistering(false)} className="p-3 rounded-lg border-blue-800 border-2 text-blue-500 hover:bg-blue-200 hover:text-black transition-colors duration-200">
+                        Iniciar sesión
+                    </button>
+                </form>
+            )}
                         <button className="m-2 p-3 rounded-lg bg-red-800 text-white hover:bg-red-600" onClick={handleBack}>Go Back</button>
                     </>
                 )}

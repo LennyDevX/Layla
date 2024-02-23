@@ -21,7 +21,7 @@
 
 .hero-section form {
     display: flex;
-    width: 1100px;
+    width: 100%; /* Cambiado a 100% para que sea responsive */
     align-items: center;
 }
 
@@ -41,8 +41,8 @@
     margin-top: 10px;
     background-color: transparent;
     color: #ffffff;
-    border-radius: 10px; /* Aquí faltaba un punto y coma */
-    border: 1px solid #ffffff;
+    border-radius: 10px;
+    border: 1px solid #78c4eb;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     opacity: 0.75;
 }
@@ -52,65 +52,62 @@
     height: 100%;
     color: white;
     border-radius: 10px;
-    overflow-y: auto; /* Añade scroll si el contenido es demasiado largo */
+    overflow-y: auto;
 }
-
 
 .chat-history {
     display: flex;
     flex-direction: column;
     padding: 10px;
+    height: 88%;
+    margin-bottom: 8px;
     background-color: #1c1d1e;
     color: #ffffff;
-    overflow-y: auto; /* Añade scroll si el contenido es demasiado largo */
+    overflow-y: auto;
 }
 
-
-
-
 /* Media queries for responsiveness */
-@media (max-width: 1200px) {
-    .hero-section form {
-        width: 100%;
+@media (min-width: 681px) {
+    .navbar {
+        display: none; /* Oculta la navbar en pantallas grandes */
     }
 }
 
 @media (max-width: 680px) {
     .hero-section {
         margin-left: 0;
-        width: 100%; /* Cambiado de 430px a 100% */
+        width: 100%;
         padding: 0;
         border-radius: 0;
     }
 
+    .navbar {
+        display: block; /* Muestra la navbar en dispositivos móviles */
+    }
+
     .hero-section form {
-        flex-direction: row; /* Cambiado de column a row */
-        width: 100%;
-        padding: 0s;
+        flex-direction: row;
+        padding: 0;
     }
 
     .hero-section input {
-        margin-right: 5px; /* Cambiado de 0 a 5px */
-        margin-bottom: 0; /* Cambiado de 5px a 0 */
-        flex-grow: 1; /* Añadido para que el input ocupe todo el espacio disponible */
+        margin-right: 5px;
+        margin-bottom: 0;
+    }
+
+    .hero-section textarea {
+        height: 500px;
     }
 }
 
-@media (max-width: 495px) {
-    .hero-section textarea {
-        height: 500px;
-        width: 100%;
-    }
-
+@media (max-width: 600px) {
     .sidebar {
         display: none;
     }
-    
 }
 
 @media screen and (min-width: 768px) {
     .sidebar {
         width: 50%;
     }
-    
 }
